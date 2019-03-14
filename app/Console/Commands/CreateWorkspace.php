@@ -112,7 +112,7 @@ class CreateWorkspace extends Command
     {
         $this->line("Add Task Queues.");
         //$reservedActivity = $workspace->findActivityByName("Reserved");
-        $assignmentActivity = $workspace->findActivityByName("Busy");
+        $assignmentActivity = $workspace->findActivityByName("Unavailable");
         foreach ($workspaceConfig->task_queues as $taskQueueJson) {
             $params = array();
             $params['friendlyName'] = $taskQueueJson->name;
