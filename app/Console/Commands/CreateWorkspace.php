@@ -111,7 +111,7 @@ class CreateWorkspace extends Command
     function addTaskQueuesToWorkspace($workspace, $workspaceConfig)
     {
         $this->line("Add Task Queues.");
-        $reservedActivity = $workspace->findActivityByName("Reserved");
+        //$reservedActivity = $workspace->findActivityByName("Reserved");
         $assignmentActivity = $workspace->findActivityByName("Busy");
         foreach ($workspaceConfig->task_queues as $taskQueueJson) {
             $params = array();
