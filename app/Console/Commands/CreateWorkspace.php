@@ -91,7 +91,7 @@ class CreateWorkspace extends Command
     function addWorkersToWorkspace($workspace, $workspaceConfig)
     {
         $this->line("Add Workers.");
-        $idleActivity = $workspace->findActivityByName("Idle")
+        $idleActivity = $workspace->findActivityByName("Available")
         or die("The activity 'Idle' was not found. Workers cannot be added.");
         foreach ($workspaceConfig->workers as $workerJson) {
             $params = array();
