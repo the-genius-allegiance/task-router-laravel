@@ -63,7 +63,7 @@ class CreateWorkspace extends Command
             $this->_twilioClient->taskrouter,
             $params
         );
-        dd($workspace);
+        //dd($workspace);
         $this->addWorkersToWorkspace($workspace, $workspaceConfig);
         $this->addTaskQueuesToWorkspace($workspace, $workspaceConfig);
         $workflow = $this->addWorkflowToWorkspace($workspace, $workspaceConfig);
@@ -104,6 +104,7 @@ class CreateWorkspace extends Command
             $params['attributes'] = json_encode($workerJson->attributes);
             $workspace->addWorker($params);
         }
+        dd($workspace);
     }
 
     /**
