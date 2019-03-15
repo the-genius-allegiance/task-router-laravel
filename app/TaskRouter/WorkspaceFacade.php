@@ -28,11 +28,13 @@ class WorkspaceFacade
             )
         );
         if ($existingWorkspace) {
+            var_dump("Workspace exists");
             $existingWorkspace[0]->delete();
         }
 
         $workspace = $taskRouterClient->workspaces
             ->create($workspaceName, $params);
+            dd($workspace);
         return new WorkspaceFacade($taskRouterClient, $workspace);
     }
 
@@ -78,6 +80,7 @@ class WorkspaceFacade
         if (!$this->_activities) {
             $this->_activities = array();
             foreach ($this->_workspace->activities->read() as $activity) {
+              dd($activity->friendlyName);
                 $this->_activities[$activity->friendlyName] = $activity;
             }
         }

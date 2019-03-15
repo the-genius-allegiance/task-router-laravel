@@ -54,7 +54,7 @@ class CreateWorkspace extends Command
 
         //Get the configuration
         $workspaceConfig = $this->createWorkspaceConfig();
-
+        dd($workspaceConfig);
         //Create the workspace
         $params = array();
         $params['friendlyName'] = $workspaceConfig->name;
@@ -79,7 +79,8 @@ class CreateWorkspace extends Command
     {
         $fileContent = File::get("resources/workspace.json");
         $interpolatedContent = sprintfn($fileContent, $this->argument());
-        return json_decode($interpolatedContent);
+        $decode = json_decode($interpolatedContent);
+        return $decode;
     }
 
     /**
@@ -91,7 +92,7 @@ class CreateWorkspace extends Command
     function addWorkersToWorkspace($workspace, $workspaceConfig)
     {
         $this->line("Add Workers.");
-        $idleActivity = $workspace->findActivityByName("Available")
+        $idleActivity = $workspace->findActivityByName("Idle")
         or die("The activity 'Idle' was not found. Workers cannot be added.");
         foreach ($workspaceConfig->workers as $workerJson) {
             $params = array();
@@ -111,8 +112,8 @@ class CreateWorkspace extends Command
     function addTaskQueuesToWorkspace($workspace, $workspaceConfig)
     {
         $this->line("Add Task Queues.");
-        //$reservedActivity = $workspace->findActivityByName("Reserved");
-        $assignmentActivity = $workspace->findActivityByName("Unavailable");
+        $reservedActivity = $workspace->findActivityByName("Reserved");
+        $assignmentActivity = $workspace->findActivityByName("Busy");
         foreach ($workspaceConfig->task_queues as $taskQueueJson) {
             $params = array();
             $params['friendlyName'] = $taskQueueJson->name;
