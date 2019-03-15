@@ -54,7 +54,7 @@ class CreateWorkspace extends Command
 
         //Get the configuration
         $workspaceConfig = $this->createWorkspaceConfig();
-        dd($workspaceConfig);
+        var_dump($workspaceConfig);
         //Create the workspace
         $params = array();
         $params['friendlyName'] = $workspaceConfig->name;
@@ -80,6 +80,7 @@ class CreateWorkspace extends Command
         $fileContent = File::get("resources/workspace.json");
         $interpolatedContent = sprintfn($fileContent, $this->argument());
         $decode = json_decode($interpolatedContent);
+        var_dump($decode);
         return $decode;
     }
 
