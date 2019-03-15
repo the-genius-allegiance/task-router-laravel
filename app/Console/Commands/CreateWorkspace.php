@@ -54,7 +54,7 @@ class CreateWorkspace extends Command
 
         //Get the configuration
         $workspaceConfig = $this->createWorkspaceConfig();
-        var_dump($workspaceConfig);
+        //var_dump($workspaceConfig);
         //Create the workspace
         $params = array();
         $params['friendlyName'] = $workspaceConfig->name;
@@ -63,6 +63,7 @@ class CreateWorkspace extends Command
             $this->_twilioClient->taskrouter,
             $params
         );
+        dd($workspace);
         $this->addWorkersToWorkspace($workspace, $workspaceConfig);
         $this->addTaskQueuesToWorkspace($workspace, $workspaceConfig);
         $workflow = $this->addWorkflowToWorkspace($workspace, $workspaceConfig);
@@ -80,7 +81,7 @@ class CreateWorkspace extends Command
         $fileContent = File::get("resources/workspace.json");
         $interpolatedContent = sprintfn($fileContent, $this->argument());
         $decode = json_decode($interpolatedContent);
-        var_dump($decode);
+        //var_dump($decode);
         return $decode;
     }
 
@@ -96,6 +97,7 @@ class CreateWorkspace extends Command
         $idleActivity = $workspace->findActivityByName("Idle")
         or die("The activity 'Idle' was not found. Workers cannot be added.");
         foreach ($workspaceConfig->workers as $workerJson) {
+          var_dump($workerJson);
             $params = array();
             $params['friendlyName'] = $workerJson->name;
             $params['activitySid'] = $idleActivity->sid;
